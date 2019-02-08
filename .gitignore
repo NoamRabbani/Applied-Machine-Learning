@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/python,jupyternotebook,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=python,jupyternotebook,visualstudiocode
 
+### Custom lines ###
+data/
+
 ### JupyterNotebook ###
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
