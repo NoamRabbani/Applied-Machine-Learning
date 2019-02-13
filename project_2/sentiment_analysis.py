@@ -86,7 +86,7 @@ print(X[5, 5])
 target = [1 if i < 12500 else 0 for i in range(25000)]
 
 X_train, X_val, y_train, y_val = train_test_split(
-            X, target, train_size = 0.1, test_size =0.1)
+            X, target, train_size = 0.75, test_size =0.25)
 bnb = BernoulliNB()
 print('size train x: '+str(X_train.shape))
 print('size train y: '+str(len(y_train)))
@@ -96,7 +96,7 @@ print('size val y: '+str(len(y_val)))
 bnb.fit( X_train,y_train)
 
 y_pred = bnb.predict(X_val)
-#y_output=pd.DataFrame
+
 print('predicted by scikit')
 print(y_pred)
 
@@ -108,24 +108,25 @@ class MyBernoulliNB(object):
         count_sample = X.shape[0]
         separated = [[x for x, t in zip(X, y) if t == c] for c in np.unique(y)]
         self.class_log_prior_ = [np.log(len(i) / count_sample) for i in separated]
-      #  pdb.set_trace()
-        count = np.array([np.array(i).sum(axis=0) for i in separated]) + self.alpha
+        count = np.array([np.array(i).sum(axis=0) for i in separated])
+        count = np.concatenate([item.toarray()+self.alpha for item in count])
         smoothing = 2 * self.alpha
         n_doc = np.array([len(i) + smoothing for i in separated])
         print(n_doc)
         self.feature_prob_ = count / n_doc[np.newaxis].T
         return self
     def predict_log_proba(self, X):
-   #     pdb.set_trace()
-        return [(np.log(self.feature_prob_) * x + \
-                 np.log(1 - self.feature_prob_) * np.abs(x - 1)
+        print('in log proba')
+        return [(np.log(self.feature_prob_) * x.toarray()[0] + \
+                 np.log(1 - self.feature_prob_) * np.abs(x.toarray()[0] - 1)
                  ).sum(axis=1) + self.class_log_prior_ for x in X]
     def predict(self, X):
+        print('in predict')
         return np.argmax(self.predict_log_proba(X), axis=1)
-nb = MyBernoulliNB(alpha=1).fit(X_train.toarray() , y_train)
+nb = MyBernoulliNB(alpha=1).fit(X_train , y_train)
 
 print('predicted by my implementation')
-my_y_pred=nb.predict(X_val.toarray())
+my_y_pred=nb.predict(X_val)
 print(my_y_pred)
 resultfile = open("output.csv",'w')
 
