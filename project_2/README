@@ -10,7 +10,7 @@ csv
 re
 pdb
 
-run "pip install requirements.txt" to get all dependencies
+run "pip install -r requirements.txt" to get all dependencies
 
 **************************
 To replicate your results
