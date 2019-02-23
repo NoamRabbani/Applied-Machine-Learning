@@ -16,11 +16,13 @@ run "pip install -r requirements.txt" to get all dependencies
 To replicate your results
 **************************
 
-for tests with implemented naive bayes classifier(since the trianing and validation are splitted randomly at each execution, the results are sligtly different each time):
+First, create a folder called "data" and place the IMDb dataset there.
+
+To run test with the implemented naive bayes classifier(since the trianing and validation are splitted randomly at each execution, the results are sligtly different each time):
 
 python3 bernoulli_naive_bayes_tests.py
 
-for the best model(gives the accuracy on training, validation sets and the cross validation score, as well as the top positive and negative words):
+To run test with the best model(gives the accuracy on training, validation sets and the cross validation score, as well as the top positive and negative words):
 
 python3 best_model.py
 
