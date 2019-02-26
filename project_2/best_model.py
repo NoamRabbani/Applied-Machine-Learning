@@ -59,7 +59,7 @@ def write_output_csv(output_file,y_pred):
 
 
 reviews_train_clean = preprocess_reviews(reviews_train)
-
+reviews_test_clean = preprocess_reviews(reviews_test)
 
 stemmed_train = get_stemmed_text(reviews_train_clean)
 stemmed_test = get_stemmed_text(reviews_test_clean)
